@@ -1,0 +1,22 @@
+datasets:
+  - name: products
+    format: csv
+    source_path: /Volumes/PEI/raw/data/Products.csv
+    target_path: /Volumes/pei/bronze/product/
+    options:
+      header: true
+      inferSchema: true
+      delimiter: ","
+      
+
+  - name: orders
+    format: json
+    source_path: /Volumes/pei/raw/data/Orders.json
+    target_path: /Volumes/pei/bronze/orders/
+    options:
+      multiline: true
+
+  - name: customer
+    format: xlsx
+    source_path: /Volumes/pei/raw/data/Customer.xlsx
+    target_path: /Volumes/pei/bronze/customer
