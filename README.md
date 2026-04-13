@@ -44,5 +44,10 @@ The pipeline ingests raw data from multiple formats (CSV, JSON, XLSX), standardi
 
 ---
 
-## Project Structure
+## Assumptions and others
+- Logic has been written as a one-time requirement and for the SCD-1 load.
+- The profit column from the Orders dataset is used for profitability calculations.
+- Unique order records are identified using irder id an product id.
+- Databricks' community edition has been used for the solution, and there were limitations to using scripts, orchestration, and other Databricks features.
+  
 
