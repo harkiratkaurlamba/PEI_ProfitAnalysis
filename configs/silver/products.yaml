@@ -5,7 +5,6 @@ source:
   format: parquet
 
 target:
-  table: silver.products
   path: /Volumes/pei/silver/products/
   format: delta
   mode: overwrite
@@ -53,16 +52,9 @@ columns:
     - product_id
     - category
     - subcategory
-    - product_name
     - price
     - ingestion_timestamp
 
-transformations:
-  - name: standardize_category
-    expr: "initcap(category) as category"
-
-  - name: standardize_subcategory
-    expr: "initcap(subcategory) as subcategory"
 
 deduplication:
   keys: [product_id]

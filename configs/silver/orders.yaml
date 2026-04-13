@@ -1,0 +1,138 @@
+table_name: orders_silver
+
+source:
+  path: /Volumes/pei/bronze/orders/
+  format: parquet
+
+target:
+  path: /Volumes/pei/silver/orders/
+  format: delta
+  mode: overwrite
+
+
+schema:
+  - name: customer_id
+    source_name: "Customer ID"
+    type: string
+    nullable: true
+
+  - name: discount
+    source_name: "Discount"
+    type: double
+    nullable: true
+
+  - name: order_date
+    source_name: "Order Date"
+    type: string
+    nullable: true
+
+  - name: order_id
+    source_name: "Order ID"
+    type: string
+    nullable: true
+
+  - name: price
+    source_name: "Price"
+    type: double
+    nullable: true
+
+  - name: product_id
+    source_name: "Product ID"
+    type: string
+    nullable: true
+
+  - name: profit
+    source_name: "Profit"
+    type: double
+    nullable: true
+
+  - name: quantity
+    source_name: "Quantity"
+    type: long
+    nullable: true
+
+  - name: row_id
+    source_name: "Row ID"
+    type: long
+    nullable: true
+
+  - name: ship_date
+    source_name: "Ship Date"
+    type: string
+    nullable: true
+
+  - name: ship_mode
+    source_name: "Ship Mode"
+    type: string
+    nullable: true
+
+  - name: ingestion_timestamp
+    source_name: "ingestion_timestamp"
+    type: timestamp
+    nullable: true
+
+  - name: source_file
+    source_name: "source_file"
+    type: string
+    nullable: true
+
+  - name: dataset_name
+    source_name: "dataset_name"
+    type: string
+    nullable: true
+
+transformations:
+  - type: cast
+    columns:
+      order_date:
+        type: date
+        format: "d/M/yyyy"
+      ship_date:
+        type: date
+        format: "d/M/yyyy"
+
+  # Rename columns to standardized format
+  # - type: rename
+  #   mappings:
+  #     Customer ID: customer_id
+  #     Order ID: order_id
+  #     Product ID: product_id
+  #     Order Date: order_date
+  #     Ship Date: ship_date
+  #     Ship Mode: ship_mode
+  #     Row ID: row_id
+
+  # Cast date fields (IMPORTANT)
+
+
+  # # Trim string columns
+  # - type: trim
+  #   columns:
+  #     - customer_id
+  #     - order_id
+  #     - product_id
+  #     - ship_mode
+
+  # # Round profit (business requirement)
+  # - type: round
+  #   columns:
+  #     profit: 2
+
+deduplication:
+  keys:
+    - order_id
+    - product_id
+  order_by: order_date
+
+columns:
+  select:
+    - order_id
+    - order_date
+    - customer_id
+    - product_id
+    - quantity
+    - price
+    - discount
+    - profit
+    - row_id
+    - ingestion_timestamp

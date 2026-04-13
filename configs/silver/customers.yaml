@@ -1,0 +1,98 @@
+table_name: customers_silver
+
+source:
+  path: /Volumes/pei/bronze/customer/
+  format: parquet
+
+target:
+  path: /Volumes/pei/silver/customers/
+  format: delta
+  mode: overwrite
+
+
+schema:
+  - name: customer_id
+    source_name: "Customer ID"
+    type: string
+    nullable: true
+
+  - name: customer_name
+    source_name: "Customer Name"
+    type: string
+    nullable: true
+
+  - name: email
+    source_name: "email"
+    type: string
+    nullable: true
+
+  - name: phone
+    source_name: "phone"
+    type: string
+    nullable: true
+
+  - name: address
+    source_name: "address" 
+    type: string
+    nullable: true
+
+  - name: segment
+    source_name: "Segment"
+    type: string
+    nullable: true
+
+  - name: country
+    source_name: "Country"
+    type: string
+    nullable: true
+
+  - name: city
+    source_name: "City"
+    type: string
+    nullable: true
+
+  - name: state
+    source_name: "State"
+    type: string
+    nullable: true
+
+  - name: postal_code
+    source_name: "Postal Code"
+    type: long
+    nullable: true
+
+  - name: region
+    source_name: "Region"
+    type: string
+    nullable: true
+
+  - name: ingestion_timestamp
+    source_name: "ingestion_timestamp"
+    type: timestamp
+    nullable: true
+
+  - name: source_file
+    source_name: "source_file"
+    type: string
+    nullable: true
+
+  - name: dataset_name
+    source_name: "dataset_name"
+    type: string
+    nullable: true
+
+deduplication:
+  keys: [customer_id]
+  order_by: ingestion_timestamp
+  strategy: latest
+
+columns:
+  select:
+    - customer_id
+    - ingestion_timestamp
+
+
+target:
+  path: /Volumes/pei/silver/customers/
+  format: delta
+  mode: overwrite
