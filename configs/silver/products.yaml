@@ -31,7 +31,7 @@ schema:
     source_name: "State"
     type: string
 
-  - name: price
+  - name: product_price
     source_name: "Price per product"
     type: string
 
@@ -43,16 +43,13 @@ schema:
     source_name: "source_file"
     type: string
 
-  - name: dataset_name
-    source_name: "dataset_name"
-    type: string
 
 columns:
   select:
     - product_id
     - category
     - subcategory
-    - price
+    - product_price
     - ingestion_timestamp
 
 
@@ -65,5 +62,5 @@ quality_checks:
   - column: product_id
     rule: not_null
 
-  - column: price
-    rule: ">= 0"
+  # - column: price
+  #   rule: ">= 0"

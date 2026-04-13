@@ -76,10 +76,6 @@ schema:
     type: string
     nullable: true
 
-  - name: dataset_name
-    source_name: "dataset_name"
-    type: string
-    nullable: true
 
 transformations:
   - type: cast
@@ -90,33 +86,6 @@ transformations:
       ship_date:
         type: date
         format: "d/M/yyyy"
-
-  # Rename columns to standardized format
-  # - type: rename
-  #   mappings:
-  #     Customer ID: customer_id
-  #     Order ID: order_id
-  #     Product ID: product_id
-  #     Order Date: order_date
-  #     Ship Date: ship_date
-  #     Ship Mode: ship_mode
-  #     Row ID: row_id
-
-  # Cast date fields (IMPORTANT)
-
-
-  # # Trim string columns
-  # - type: trim
-  #   columns:
-  #     - customer_id
-  #     - order_id
-  #     - product_id
-  #     - ship_mode
-
-  # # Round profit (business requirement)
-  # - type: round
-  #   columns:
-  #     profit: 2
 
 deduplication:
   keys:
@@ -134,5 +103,4 @@ columns:
     - price
     - discount
     - profit
-    - row_id
-    - ingestion_timestamp
+       - ingestion_timestamp

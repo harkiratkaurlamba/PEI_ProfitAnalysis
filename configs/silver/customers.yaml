@@ -22,17 +22,17 @@ schema:
     nullable: true
 
   - name: email
-    source_name: "email"
+    source_name: "email_hash"
     type: string
     nullable: true
 
   - name: phone
-    source_name: "phone"
+    source_name: "phone_hash"
     type: string
     nullable: true
 
   - name: address
-    source_name: "address" 
+    source_name: "address_hash" 
     type: string
     nullable: true
 
@@ -76,10 +76,6 @@ schema:
     type: string
     nullable: true
 
-  - name: dataset_name
-    source_name: "dataset_name"
-    type: string
-    nullable: true
 
 deduplication:
   keys: [customer_id]
@@ -89,7 +85,7 @@ deduplication:
 columns:
   select:
     - customer_id
-    - ingestion_timestamp
+    - customer_name
 
 
 target:
